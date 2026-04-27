@@ -51,4 +51,14 @@ public class QuantityMeasurementAppTest {
 
         assertEquals(2.0, result.getValue(), 0.001);
     }
+    
+    @Test
+public void testAdditionWithTargetUnit() {
+    Length l1 = new Length(1.0, LengthUnit.FEET);
+    Length l2 = new Length(12.0, LengthUnit.INCHES);
+
+    Length result = l1.add(l2, LengthUnit.YARDS);
+
+    assertEquals(0.666, result.getValue(), 0.01);
+}
 }
