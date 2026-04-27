@@ -61,4 +61,22 @@ public void testAdditionWithTargetUnit() {
 
     assertEquals(0.666, result.getValue(), 0.01);
 }
+
+    @Test
+    public void testWeightConversion() {
+        Weight w = new Weight(1.0, WeightUnit.KILOGRAM);
+
+        assertEquals(1000.0, w.convertTo(WeightUnit.GRAM), 0.01);
+    }
+
+    @Test
+    public void testWeightAddition() {
+        Weight w1 = new Weight(1.0, WeightUnit.KILOGRAM);
+        Weight w2 = new Weight(500.0, WeightUnit.GRAM);
+
+        Weight result = w1.add(w2);
+
+        assertEquals(1.5, result.getValue(), 0.01);
+    }
+}
 }
