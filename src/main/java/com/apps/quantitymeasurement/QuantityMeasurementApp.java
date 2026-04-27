@@ -32,19 +32,36 @@ public class QuantityMeasurementApp {
             this.unit = unit;
         }
 
+        private double toBase() {
+            return unit.toFeet(value);
+        }
+
+        // UC5 - Conversion
         public double convertTo(LengthUnit targetUnit) {
-            double inFeet = unit.toFeet(value);
+            double inFeet = this.toBase();
             return targetUnit.fromFeet(inFeet);
+        }
+
+        // UC6 - Addition
+        public Length add(Length other) {
+            double sumFeet = this.toBase() + other.toBase();
+            double result = unit.fromFeet(sumFeet);
+            return new Length(result, unit);
+        }
+
+        public double getValue() {
+            return value;
         }
     }
 
     public static void main(String[] args) {
-        Length length = new Length(1.0, LengthUnit.FEET);
+        Length l1 = new Length(1.0, LengthUnit.FEET);
+        Length l2 = new Length(12.0, LengthUnit.INCHES);
 
         System.out.println("1 foot in inches: " +
-                length.convertTo(LengthUnit.INCHES));
+                l1.convertTo(LengthUnit.INCHES));
 
-        System.out.println("1 foot in cm: " +
-                length.convertTo(LengthUnit.CENTIMETERS));
+        System.out.println("1 ft + 12 inches = " +
+                l1.add(l2).getValue() + " feet");
     }
 }
