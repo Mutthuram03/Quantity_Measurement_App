@@ -42,11 +42,18 @@ public class QuantityMeasurementApp {
             return targetUnit.fromFeet(inFeet);
         }
 
-        // UC6 - Addition
+        // UC6 - Addition (same unit)
         public Length add(Length other) {
             double sumFeet = this.toBase() + other.toBase();
             double result = unit.fromFeet(sumFeet);
             return new Length(result, unit);
+        }
+
+        // ✅ UC7 - Addition with target unit
+        public Length add(Length other, LengthUnit targetUnit) {
+            double sumFeet = this.toBase() + other.toBase();
+            double result = targetUnit.fromFeet(sumFeet);
+            return new Length(result, targetUnit);
         }
 
         public double getValue() {
@@ -61,7 +68,10 @@ public class QuantityMeasurementApp {
         System.out.println("1 foot in inches: " +
                 l1.convertTo(LengthUnit.INCHES));
 
-        System.out.println("1 ft + 12 inches = " +
-                l1.add(l2).getValue() + " feet");
+        System.out.println("1 ft + 12 inches (feet): " +
+                l1.add(l2).getValue());
+
+        System.out.println("1 ft + 12 inches (yards): " +
+                l1.add(l2, LengthUnit.YARDS).getValue());
     }
 }
