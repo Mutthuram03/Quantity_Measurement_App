@@ -18,8 +18,8 @@ public class QuantityMeasurementApp {
             return value * toFeetFactor;
         }
 
-        public double fromFeet(double feet) {
-            return feet / toFeetFactor;
+        public double fromFeet(double feetValue) {
+            return feetValue / toFeetFactor;
         }
     }
 
@@ -36,6 +36,13 @@ public class QuantityMeasurementApp {
             return unit.toFeet(value);
         }
 
+        // UC5 - Conversion
+        public double convertTo(LengthUnit targetUnit) {
+            double inFeet = this.toBase();
+            return targetUnit.fromFeet(inFeet);
+        }
+
+        // UC6 - Addition
         public Length add(Length other) {
             double sumFeet = this.toBase() + other.toBase();
             double result = unit.fromFeet(sumFeet);
@@ -45,5 +52,16 @@ public class QuantityMeasurementApp {
         public double getValue() {
             return value;
         }
+    }
+
+    public static void main(String[] args) {
+        Length l1 = new Length(1.0, LengthUnit.FEET);
+        Length l2 = new Length(12.0, LengthUnit.INCHES);
+
+        System.out.println("1 foot in inches: " +
+                l1.convertTo(LengthUnit.INCHES));
+
+        System.out.println("1 ft + 12 inches = " +
+                l1.add(l2).getValue() + " feet");
     }
 }
